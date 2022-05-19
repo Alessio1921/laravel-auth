@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "HomeController@index")->name("welcome");
 Auth::routes();
 
 Route::middleware('auth')
@@ -25,6 +23,6 @@ Route::middleware('auth')
 ->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('posts',"PostsController");
+    Route::get("/{any}","PostsController@index")->where("any",".*");
 });
-// ->get('/admin', 'admin\HomeController@index')->name('home');
-
+Route::get("/{any}","HomeController@index")->where("any",".*");
